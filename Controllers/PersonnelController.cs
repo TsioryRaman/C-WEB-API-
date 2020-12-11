@@ -68,5 +68,21 @@ namespace Tache.Controllers
 
             return response;
         }
+        [HttpGet]
+        [Route("pesonnel")]
+        public IActionResult PesonnelPerPage(int page)
+        {
+            IActionResult response = BadRequest(new { error="Incorrect user"});
+
+            List<Personnels> personnels = Personnels.GetByPage(page);
+
+            if(personnels.Count > 0)
+            {
+                response = Ok(new { personnels });
+            }
+
+
+            return response;
+        }
     }
 }

@@ -34,7 +34,7 @@ namespace Tache.Controllers
         {
 
             Console.WriteLine("L'utilisateur : "+User.username);
-            IActionResult response = Unauthorized();
+            IActionResult response = BadRequest(new { error="User not found" });
 
             var user = Users.IsUser(User);
 
@@ -42,9 +42,11 @@ namespace Tache.Controllers
             {
                 var tokenString = GenerateToken(user);
                 response = Ok(new { token = tokenString });
-            }
+                return response;
 
+            }
             return response;
+
         }
    
         [HttpGet]
@@ -58,9 +60,8 @@ namespace Tache.Controllers
  
         if(currentUser.HasClaim(c=>c.Type == "Username"))
             {
-                Console.WriteLine("Nom d'utilisateur "+currentUser.Claims.FirstOrDefault(c => c.Type == "Username").Value);
+                // Get User Id.
                 var _idUser =currentUser.Claims.FirstOrDefault(c => c.Type == "IdUser").Value;
-                Console.WriteLine("L'id de l'admin : " + _idUser);
                 var user = Users.Find(_idUser);
                 response = Ok(new { user });
                 return response;

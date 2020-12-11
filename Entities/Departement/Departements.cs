@@ -19,5 +19,7 @@ namespace Tache.Entities.Departement
         public string DepartementName { get; set; }
 
         public ICollection<Personnels> Personnel { get; set; }
+
+
     }
 }

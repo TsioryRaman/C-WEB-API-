@@ -28,6 +28,9 @@ namespace Tache.Entities.Personnel
         [Required]
         public string Fonction { get; set; }
 
+        [Required]
+        public string Adresse { get; set; }
+
         [Column(TypeName ="Date")]
         [DataType(DataType.Date)]
         public DateTime DateWork { get; set; }
@@ -40,7 +43,6 @@ namespace Tache.Entities.Personnel
 
         [NotMapped]
         public IFormFile file { get; set; }
-
         
         public virtual ICollection<Taches> taches { get; set; }
 
@@ -60,7 +62,34 @@ namespace Tache.Entities.Personnel
                 return context.Set<Personnels>().Find(id);
             }
         }
+        public static List<Personnels> GetAll()
+        {
+            using(var context = new TacheContext())
+            {
+                return context.Personnel.ToList();
+            }
+        }
 
+        public static List<Personnels> GetByPage(int page)
+        {
+            if(page == 0)
+            {
+                page = 1;
+            }
+            int count = 5; 
+            var skip = (count * page) - count;
+
+            if (Personnels.GetAll().Count()<skip)
+            {
+                skip = 0;
+            }
+
+            using(var context = new TacheContext())
+            {
+               
+                return context.Set<Personnels>().Skip(skip).Take(count).ToList();
+            }
+        }
 
     }
 }
