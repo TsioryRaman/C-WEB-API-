@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tache.Entities.Contexte;
 
 namespace Tache
 {
@@ -49,9 +50,13 @@ namespace Tache
             });
 
            
-
+            
             services.AddControllers();
-
+            services.AddControllers().AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
+            services.AddDbContext<TacheContext>();
 
             services.AddSwaggerGen(c =>
             {
@@ -71,12 +76,12 @@ namespace Tache
             }
 
             app.UseHttpsRedirection();
-
+            app.UseStaticFiles();
             /*      app.UseCors(options=>options.WithOrigins(BREAKPOINTS));*/
-
+            
 
             app.UseAuthentication();
-
+        
             app.UseRouting();
 
             app.UseCors(options => {

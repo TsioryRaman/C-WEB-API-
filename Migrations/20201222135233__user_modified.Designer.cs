@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tache.Entities.Contexte;
 
 namespace Tache.Migrations
 {
     [DbContext(typeof(TacheContext))]
-    partial class TacheContextModelSnapshot : ModelSnapshot
+    [Migration("20201222135233__user_modified")]
+    partial class _user_modified
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,9 +97,6 @@ namespace Tache.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<bool>("Completed")
-                        .HasColumnType("bit");
-
                     b.Property<DateTime>("Deadline")
                         .HasColumnType("Date");
 
@@ -118,25 +117,17 @@ namespace Tache.Migrations
 
             modelBuilder.Entity("Tache.Entities.User.Users", b =>
                 {
-                    b.Property<int>("IdUser")
+                    b.Property<string>("username")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<bool>("isAdmin")
-                        .HasColumnType("bit");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("password")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<string>("username")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.HasKey("IdUser");
+                    b.HasKey("username");
 
                     b.ToTable("Users");
                 });

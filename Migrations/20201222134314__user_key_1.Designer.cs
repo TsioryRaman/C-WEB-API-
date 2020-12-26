@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tache.Entities.Contexte;
 
 namespace Tache.Migrations
 {
     [DbContext(typeof(TacheContext))]
-    partial class TacheContextModelSnapshot : ModelSnapshot
+    [Migration("20201222134314__user_key_1")]
+    partial class _user_key_1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,9 +97,6 @@ namespace Tache.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<bool>("Completed")
-                        .HasColumnType("bit");
-
                     b.Property<DateTime>("Deadline")
                         .HasColumnType("Date");
 
@@ -118,13 +117,9 @@ namespace Tache.Migrations
 
             modelBuilder.Entity("Tache.Entities.User.Users", b =>
                 {
-                    b.Property<int>("IdUser")
+                    b.Property<string>("IdUser")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<bool>("isAdmin")
-                        .HasColumnType("bit");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("password")
                         .IsRequired()

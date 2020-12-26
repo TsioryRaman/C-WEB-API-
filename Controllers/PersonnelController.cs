@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Web;
-
 using System.Net.Http;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +11,8 @@ using Tache.Entities.Personnel;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using Tache.Entities.Contexte;
+using Microsoft.EntityFrameworkCore;
 
 namespace Tache.Controllers
 {
@@ -21,14 +22,22 @@ namespace Tache.Controllers
     [EnableCors]
     public class PersonnelController : ControllerBase
     {
+
+        private DbContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public PersonnelController(IWebHostEnvironment webHostEnvironment)
+
+
+        public PersonnelController(IWebHostEnvironment webHostEnvironment,TacheContext context)
         {
+            this._context = context;
             _webHostEnvironment = webHostEnvironment;
+
         }
 
+ 
+
         [HttpPost]
-        [Authorize]
+       /* [Authorize]*/
         [Route("newpersonnel")]
         public IActionResult NewPersonnel([FromForm]Personnels personnels)
         {
@@ -64,11 +73,11 @@ namespace Tache.Controllers
                 Console.WriteLine("Erreur :" + e.Message);
             }
             Personnels.create(personnels);
-
-
             return response;
         }
+
         [HttpGet]
+        [Authorize]
         [Route("pesonnel")]
         public IActionResult PesonnelPerPage(int page)
         {
@@ -80,9 +89,9 @@ namespace Tache.Controllers
             {
                 response = Ok(new { personnels });
             }
-
-
             return response;
         }
+
+
     }
 }

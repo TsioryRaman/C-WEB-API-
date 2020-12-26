@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tache.Entities.Contexte;
 
 namespace Tache.Migrations
 {
     [DbContext(typeof(TacheContext))]
-    partial class TacheContextModelSnapshot : ModelSnapshot
+    [Migration("20201222085944_first")]
+    partial class first
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,9 +97,6 @@ namespace Tache.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<bool>("Completed")
-                        .HasColumnType("bit");
-
                     b.Property<DateTime>("Deadline")
                         .HasColumnType("Date");
 
@@ -118,13 +117,8 @@ namespace Tache.Migrations
 
             modelBuilder.Entity("Tache.Entities.User.Users", b =>
                 {
-                    b.Property<int>("IdUser")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<bool>("isAdmin")
-                        .HasColumnType("bit");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("password")
                         .IsRequired()
@@ -136,7 +130,7 @@ namespace Tache.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.HasKey("IdUser");
+                    b.HasKey("Id");
 
                     b.ToTable("Users");
                 });

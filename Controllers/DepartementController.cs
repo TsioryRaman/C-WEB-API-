@@ -4,18 +4,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Tache.Entities.Contexte;
 
 namespace Tache.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class DepartementController : ControllerBase
     {
-        [HttpGet]
-        [Route("teste")]
-        public string get()
+        private readonly TacheContext context;
+
+        public DepartementController(TacheContext context)
         {
-            return "merde";
+            this.context = context;
         }
+
     }
 }

@@ -12,14 +12,11 @@ namespace Tache.Entities.Departement
     public class Departements
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdDepartement { get; set; }
 
-        [Required]
-       
         public string DepartementName { get; set; }
 
-        public ICollection<Personnels> Personnel { get; set; }
-
-
+        public virtual ICollection<Personnels> Personnel { get; set; }
     }
 }

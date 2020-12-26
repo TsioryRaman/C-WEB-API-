@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tache.Entities.Contexte;
 
 namespace Tache.Migrations
 {
     [DbContext(typeof(TacheContext))]
-    partial class TacheContextModelSnapshot : ModelSnapshot
+    [Migration("20201224082132_is_admin")]
+    partial class is_admin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -94,9 +96,6 @@ namespace Tache.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
-
-                    b.Property<bool>("Completed")
-                        .HasColumnType("bit");
 
                     b.Property<DateTime>("Deadline")
                         .HasColumnType("Date");
